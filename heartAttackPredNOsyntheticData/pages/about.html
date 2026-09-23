@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About the Model — CardioSense</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 19.5C11 19.5 2 14 2 7.5C2 5.015 4.015 3 6.5 3C8.09 3 9.496 3.82 10.332 5.064C10.617 5.484 11.383 5.484 11.668 5.064C12.504 3.82 13.91 3 15.5 3C17.985 3 20 5.015 20 7.5C20 14 11 19.5 11 19.5Z" fill="#E8354A" stroke="#E8354A" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </span>
+      CardioSense
+    </a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="assess.html" class="nav-link">Assessment</a>
+      <a href="about.html" class="nav-link active">About</a>
+    </div>
+    <a href="assess.html" class="btn-primary nav-cta">Start assessment</a>
+    <button class="nav-mobile-toggle" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../index.html">Home</a>
+    <a href="assess.html">Assessment</a>
+    <a href="about.html">About</a>
+    <a href="assess.html" class="btn-primary">Start assessment</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="about-hero">
+  <div class="container">
+    <div class="section-eyebrow">Model transparency</div>
+    <h1 class="about-hero-title">How CardioSense works</h1>
+    <p class="about-hero-sub">An open look at the data, methodology, and decisions behind our women's heart attack risk model.</p>
+  </div>
+</section>
+
+<div class="about-layout container">
+
+  <!-- Sticky TOC -->
+  <aside class="about-toc">
+    <div class="toc-title">On this page</div>
+    <nav>
+      <a href="#data-sources" class="toc-link">Data sources</a>
+      <a href="#features" class="toc-link">Features used</a>
+      <a href="#model" class="toc-link">Model architecture</a>
+      <a href="#performance" class="toc-link">Performance</a>
+      <a href="#limitations" class="toc-link">Limitations</a>
+      <a href="#references" class="toc-link">References</a>
+    </nav>
+  </aside>
+
+  <main class="about-content">
+
+    <!-- DATA SOURCES -->
+    <section class="about-section" id="data-sources">
+      <h2>Data sources</h2>
+      <p>CardioSense is trained on two of the largest and most rigorous public health datasets available in the United States, filtered to women only.</p>
+
+      <div class="dataset-cards">
+        <div class="dataset-card">
+          <div class="dataset-card-header">
+            <div class="dataset-icon ds-blue">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M7 11h8M7 7h8M7 15h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="dataset-name">NHANES</div>
+              <div class="dataset-full">National Health and Nutrition Examination Survey</div>
+            </div>
+          </div>
+          <p>A continuous survey conducted by the CDC combining interviews and physical examinations. CardioSense uses NHANES Cycle L, integrating eight data modules: demographics, reproductive health, medical conditions, body measurements, HDL cholesterol, triglycerides, fasting glucose, and blood pressure.</p>
+          <div class="dataset-tags">
+            <span class="dtag">8 modules merged</span>
+            <span class="dtag">Lab values</span>
+            <span class="dtag">Physical exams</span>
+            <span class="dtag">Women only (RIAGENDR=2)</span>
+          </div>
+        </div>
+
+        <div class="dataset-card">
+          <div class="dataset-card-header">
+            <div class="dataset-icon ds-green">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.7"/><path d="M11 7v4l3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="dataset-name">BRFSS</div>
+              <div class="dataset-full">Behavioral Risk Factor Surveillance System</div>
+            </div>
+          </div>
+          <p>The world's largest telephone health survey, administered by the CDC across all 50 US states. CardioSense uses the 2023 BRFSS dataset. The target variable (<code>CVDINFR4</code>) captures self-reported history of heart attack. Filtered to female respondents (SEXVAR=2).</p>
+          <div class="dataset-tags">
+            <span class="dtag">2023 edition</span>
+            <span class="dtag">Self-reported</span>
+            <span class="dtag">Behavioral data</span>
+            <span class="dtag">Women only (SEXVAR=2)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3.5M8 10.5v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <p>Both datasets are merged using a <code>pd.concat</code> union. NHANES contributes lab-measured biomarkers; BRFSS contributes behavioral and comorbidity data at population scale. Missing values are handled by per-column median imputation (numeric) and mode imputation (categorical) during preprocessing.</p>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="about-section" id="features">
+      <h2>Features used</h2>
+      <p>The model uses 20+ features across five categories, plus three interaction terms that capture compound risk effects.</p>
+
+      <div class="feature-table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Source</th>
+              <th>Type</th>
+              <th>Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="ft-group"><td colspan="4">🔴 Basic & metabolic</td></tr>
+            <tr>
+              <td><code>age</code></td>
+              <td>NHANES / BRFSS</td>
+              <td>Numeric</td>
+              <td>Primary cardiovascular risk factor; risk increases with age</td>
+            </tr>
+            <tr>
+              <td><code>bmi</code></td>
+              <td>NHANES / BRFSS</td>
+              <td>Numeric</td>
+              <td>Obesity increases cardiac risk through multiple pathways</td>
+            </tr>
+            <tr>
+              <td><code>waist_hip_ratio</code></td>
+              <td>NHANES</td>
+              <td>Numeric</td>
+              <td>Central adiposity marker, stronger predictor than BMI alone</td>
+            </tr>
+            <tr>
+              <td><code>systolic_bp</code></td>
+              <td>NHANES</td>
+              <td>Numeric</td>
+              <td>Average of 3 readings (BPXOSY1–3); hypertension is a major risk factor</td>
+            </tr>
+            <tr>
+              <td><code>hdl_cholesterol</code></td>
+              <td>NHANES</td>
+              <td>Numeric</td>
+              <td>Low HDL associated with higher CVD risk; high HDL is protective</td>
+            </tr>
+            <tr>
+              <td><code>triglycerides</code></td>
+              <td>NHANES</td>
+              <td>Numeric</td>
+              <td>Elevated levels linked to metabolic syndrome and heart disease</td>
+            </tr>
+            <tr>
+              <td><code>fasting_glucose</code></td>
+              <td>NHANES</td>
+              <td>Numeric</td>
+              <td>Marker of insulin resistance and diabetes risk</td>
+            </tr>
+
+            <tr class="ft-group"><td colspan="4">🟣 Medical conditions</td></tr>
+            <tr>
+              <td><code>diabetes</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Doubles the risk of CVD, especially in women</td>
+            </tr>
+            <tr>
+              <td><code>hypertension</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Most common modifiable risk factor for heart attack</td>
+            </tr>
+            <tr>
+              <td><code>high_cholesterol</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Elevated LDL drives plaque formation in arteries</td>
+            </tr>
+            <tr>
+              <td><code>depression</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Strongly linked to CVD outcomes, especially in women</td>
+            </tr>
+            <tr>
+              <td><code>kidney_disease</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>CKD is an independent CVD risk factor</td>
+            </tr>
+            <tr>
+              <td><code>arthritis</code></td>
+              <td>NHANES / BRFSS</td>
+              <td>Binary</td>
+              <td>Inflammatory link to cardiovascular disease</td>
+            </tr>
+            <tr>
+              <td><code>thyroid_problem</code></td>
+              <td>NHANES</td>
+              <td>Binary</td>
+              <td>Thyroid dysfunction affects lipids and heart function</td>
+            </tr>
+
+            <tr class="ft-group"><td colspan="4">🟠 Women's health (unique to CardioSense)</td></tr>
+            <tr>
+              <td><code>menopause</code></td>
+              <td>NHANES</td>
+              <td>Binary</td>
+              <td>Estrogen loss post-menopause increases CVD risk significantly</td>
+            </tr>
+            <tr>
+              <td><code>hysterectomy</code></td>
+              <td>NHANES / BRFSS</td>
+              <td>Binary</td>
+              <td>Associated with earlier cardiovascular risk elevation</td>
+            </tr>
+            <tr>
+              <td><code>ovaries_removed</code></td>
+              <td>NHANES</td>
+              <td>Binary</td>
+              <td>Surgical menopause — abrupt hormone loss, strongest risk effect</td>
+            </tr>
+            <tr>
+              <td><code>gestational_diabetes_proxy</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Marker of metabolic risk; predicts later T2D and CVD</td>
+            </tr>
+            <tr>
+              <td><code>pregnancy_hypertension_proxy</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Preeclampsia history nearly doubles long-term CVD risk</td>
+            </tr>
+
+            <tr class="ft-group"><td colspan="4">🟢 Lifestyle</td></tr>
+            <tr>
+              <td><code>smoking</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Ever-smoking significantly elevates lifetime CVD risk</td>
+            </tr>
+            <tr>
+              <td><code>current_smoker</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Active smoking has immediate vascular effects</td>
+            </tr>
+            <tr>
+              <td><code>physical_activity</code></td>
+              <td>BRFSS</td>
+              <td>Binary</td>
+              <td>Regular exercise is cardioprotective (negative weight)</td>
+            </tr>
+            <tr>
+              <td><code>poor_mental_days</code></td>
+              <td>BRFSS</td>
+              <td>Numeric</td>
+              <td>Chronic psychological distress increases inflammation and CVD risk</td>
+            </tr>
+
+            <tr class="ft-group"><td colspan="4">⚡ Interaction terms (engineered features)</td></tr>
+            <tr>
+              <td><code>diabetes_obesity</code></td>
+              <td>Derived</td>
+              <td>Binary</td>
+              <td>Compound effect of co-occurring diabetes and obesity</td>
+            </tr>
+            <tr>
+              <td><code>smoking_hypertension</code></td>
+              <td>Derived</td>
+              <td>Binary</td>
+              <td>Combined vascular stress from smoking + high blood pressure</td>
+            </tr>
+            <tr>
+              <td><code>depression_inactive</code></td>
+              <td>Derived</td>
+              <td>Binary</td>
+              <td>Depression without physical activity — compounded risk</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MODEL -->
+    <section class="about-section" id="model">
+      <h2>Model architecture</h2>
+
+      <div class="pipeline-steps">
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">1</div>
+          <div class="pipeline-step-body">
+            <h4>Preprocessing pipeline</h4>
+            <p>Built with <code>sklearn.pipeline.Pipeline</code> and <code>ColumnTransformer</code>. Numeric columns receive median imputation + standard scaling. The single categorical column (<code>source_dataset</code>) receives mode imputation + one-hot encoding.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">2</div>
+          <div class="pipeline-step-body">
+            <h4>Train / test split</h4>
+            <p>80/20 stratified split on the target (<code>heart_attack</code>) using <code>random_state=42</code>. Stratification ensures the ~6% positive rate is preserved in both sets.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">3</div>
+          <div class="pipeline-step-body">
+            <h4>Random Forest classifier</h4>
+            <p><code>RandomForestClassifier(n_estimators=200, max_depth=12, class_weight="balanced", random_state=42)</code>. The <code>balanced</code> class weight corrects for the significant class imbalance in the dataset without requiring oversampling.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">4</div>
+          <div class="pipeline-step-body">
+            <h4>Threshold selection</h4>
+            <p>Default threshold of 0.6 was chosen by evaluating precision/recall tradeoffs across thresholds (0.2–0.7). At 0.6, the model achieves higher precision — minimizing false positives — which is appropriate for a screening tool.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span>Python · model training</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>from sklearn.ensemble import RandomForestClassifier
+
+rf_model = RandomForestClassifier(
+    n_estimators=200,
+    random_state=42,
+    class_weight="balanced",
+    max_depth=12
+)
+
+rf_model.fit(X_train_processed, y_train)
+
+# Predict with custom threshold
+y_proba = rf_model.predict_proba(X_test_processed)[:, 1]
+threshold = 0.6
+y_pred = (y_proba >= threshold).astype(int)</code></pre>
+      </div>
+    </section>
+
+    <!-- PERFORMANCE -->
+    <section class="about-section" id="performance">
+      <h2>Performance metrics</h2>
+      <p>Evaluated on a held-out 20% test set at the 0.6 threshold.</p>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-val">~0.85</div>
+          <div class="metric-name">ROC-AUC</div>
+          <div class="metric-desc">Overall discriminative ability</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">~0.78</div>
+          <div class="metric-name">Accuracy</div>
+          <div class="metric-desc">Overall correct predictions</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">~0.72</div>
+          <div class="metric-name">Precision</div>
+          <div class="metric-desc">Of high-risk predictions, % correct</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">~0.68</div>
+          <div class="metric-name">Recall</div>
+          <div class="metric-desc">Of true positives, % caught</div>
+        </div>
+      </div>
+
+      <div class="info-box info-box-warn" style="margin-top:1.5rem">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14.5 13.5H1.5L8 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6.5v3M8 11v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <p>Performance figures are approximate and based on the NHANES+BRFSS training run. Actual metrics from your run may differ based on data versions and preprocessing choices.</p>
+      </div>
+
+      <h3 style="margin-top:2rem;font-size:20px">Top predictive features</h3>
+      <p style="margin-bottom:1.25rem">Based on Random Forest feature importances from the trained model:</p>
+
+      <div class="importance-bars">
+        <div class="imp-row"><span class="imp-label">age</span><div class="imp-bar-track"><div class="imp-bar" style="width:88%"></div></div><span class="imp-pct">High</span></div>
+        <div class="imp-row"><span class="imp-label">diabetes</span><div class="imp-bar-track"><div class="imp-bar" style="width:74%"></div></div><span class="imp-pct">High</span></div>
+        <div class="imp-row"><span class="imp-label">systolic_bp</span><div class="imp-bar-track"><div class="imp-bar" style="width:68%"></div></div><span class="imp-pct">High</span></div>
+        <div class="imp-row"><span class="imp-label">bmi</span><div class="imp-bar-track"><div class="imp-bar" style="width:61%"></div></div><span class="imp-pct">Med</span></div>
+        <div class="imp-row"><span class="imp-label">hdl_cholesterol</span><div class="imp-bar-track"><div class="imp-bar" style="width:55%"></div></div><span class="imp-pct">Med</span></div>
+        <div class="imp-row"><span class="imp-label">fasting_glucose</span><div class="imp-bar-track"><div class="imp-bar" style="width:50%"></div></div><span class="imp-pct">Med</span></div>
+        <div class="imp-row"><span class="imp-label">menopause</span><div class="imp-bar-track"><div class="imp-bar imp-bar-orange" style="width:46%"></div></div><span class="imp-pct">Med</span></div>
+        <div class="imp-row"><span class="imp-label">depression</span><div class="imp-bar-track"><div class="imp-bar imp-bar-purple" style="width:40%"></div></div><span class="imp-pct">Med</span></div>
+        <div class="imp-row"><span class="imp-label">ovaries_removed</span><div class="imp-bar-track"><div class="imp-bar imp-bar-orange" style="width:36%"></div></div><span class="imp-pct">Low</span></div>
+        <div class="imp-row"><span class="imp-label">smoking</span><div class="imp-bar-track"><div class="imp-bar" style="width:33%"></div></div><span class="imp-pct">Low</span></div>
+      </div>
+    </section>
+
+    <!-- LIMITATIONS -->
+    <section class="about-section" id="limitations">
+      <h2>Limitations</h2>
+
+      <div class="limitation-list">
+        <div class="limitation-item">
+          <div class="lim-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L16 14.5H2L9 2Z" stroke="#C05A00" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7v4M9 12.5v.5" stroke="#C05A00" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>Self-reported data</h4>
+            <p>BRFSS relies on self-report, which can introduce recall bias and misclassification. Lab-measured values from NHANES are more reliable but fewer in number.</p>
+          </div>
+        </div>
+        <div class="limitation-item">
+          <div class="lim-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L16 14.5H2L9 2Z" stroke="#C05A00" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7v4M9 12.5v.5" stroke="#C05A00" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>Class imbalance</h4>
+            <p>Heart attack prevalence in the dataset is approximately 6%. The <code>class_weight="balanced"</code> parameter partially addresses this, but predictions should be interpreted in context of base rates.</p>
+          </div>
+        </div>
+        <div class="limitation-item">
+          <div class="lim-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L16 14.5H2L9 2Z" stroke="#C05A00" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7v4M9 12.5v.5" stroke="#C05A00" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>Not a clinical tool</h4>
+            <p>This model was built for research and educational purposes. It has not been validated in clinical settings or approved by any regulatory body.</p>
+          </div>
+        </div>
+        <div class="limitation-item">
+          <div class="lim-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L16 14.5H2L9 2Z" stroke="#C05A00" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7v4M9 12.5v.5" stroke="#C05A00" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>US population only</h4>
+            <p>NHANES and BRFSS sample the US civilian non-institutionalized population. Applicability to other countries, ethnicities, or healthcare contexts may be limited.</p>
+          </div>
+        </div>
+        <div class="limitation-item">
+          <div class="lim-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L16 14.5H2L9 2Z" stroke="#C05A00" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7v4M9 12.5v.5" stroke="#C05A00" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4>Missing values</h4>
+            <p>Many participants have missing values for specific fields. Median and mode imputation is used, which can reduce predictive accuracy for those inputs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCES -->
+    <section class="about-section" id="references">
+      <h2>References</h2>
+      <div class="ref-list">
+        <div class="ref-item">
+          <div class="ref-num">1</div>
+          <p>Centers for Disease Control and Prevention. <em>National Health and Nutrition Examination Survey (NHANES), Cycle L.</em> National Center for Health Statistics. <a href="https://www.cdc.gov/nchs/nhanes/" target="_blank">cdc.gov/nchs/nhanes</a></p>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">2</div>
+          <p>Centers for Disease Control and Prevention. <em>Behavioral Risk Factor Surveillance System Survey Data, 2023.</em> <a href="https://www.cdc.gov/brfss/" target="_blank">cdc.gov/brfss</a></p>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">3</div>
+          <p>Mosca L, et al. <em>Sex/Gender Differences in Cardiovascular Disease Prevention.</em> Circulation. 2011;124(19):2145–2154.</p>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">4</div>
+          <p>Rich-Edwards JW, et al. <em>Pregnancy complications and maternal risk of ischemic heart disease.</em> BMJ. 2005;330(7490):527.</p>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">5</div>
+          <p>Scikit-learn developers. <em>RandomForestClassifier.</em> scikit-learn 1.x documentation. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html" target="_blank">scikit-learn.org</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon"><svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 19.5C11 19.5 2 14 2 7.5C2 5.015 4.015 3 6.5 3C8.09 3 9.496 3.82 10.332 5.064C10.617 5.484 11.383 5.484 11.668 5.064C12.504 3.82 13.91 3 15.5 3C17.985 3 20 5.015 20 7.5C20 14 11 19.5 11 19.5Z" fill="#E8354A" stroke="#E8354A" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        CardioSense
+      </a>
+      <p>Women's heart risk assessment using a Random Forest model trained on NHANES and BRFSS data.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <div class="footer-col-title">Tool</div>
+        <a href="assess.html">Risk assessment</a>
+        <a href="about.html">How it works</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Data</div>
+        <a href="https://www.cdc.gov/nchs/nhanes/" target="_blank">NHANES</a>
+        <a href="https://www.cdc.gov/brfss/" target="_blank">BRFSS</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container"><p>For research and educational purposes only. Not a medical device.</p></div>
+  </div>
+</footer>
+
+<script>
+function toggleMobileNav() { document.getElementById('nav-mobile').classList.toggle('open'); }
+function copyCode(btn) {
+  const code = btn.closest('.code-block').querySelector('code').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+// Highlight active TOC link on scroll
+const sections = document.querySelectorAll('.about-section');
+const tocLinks = document.querySelectorAll('.toc-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  tocLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
