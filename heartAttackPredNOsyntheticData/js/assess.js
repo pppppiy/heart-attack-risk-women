@@ -1,7 +1,3 @@
-/* =============================================
-   ASSESS.JS — Assessment logic
-   ============================================= */
-
 const toggleState = {};
 
 /* ── Toggle buttons ── */
@@ -18,8 +14,9 @@ function numVal(id) {
 }
 
 function getApiUrl() {
-  const el = document.getElementById('api-url');
-  return el ? el.value.trim().replace(/\/$/, '') : '';
+    const el = document.getElementById('api-url');
+    const inputVal = el ? el.value.trim().replace(/\/$/, '') : '';
+    return inputVal || "https://heart-attack-risk-women.onrender.com";
 }
 
 /* ── Sidebar progress tracking ── */
